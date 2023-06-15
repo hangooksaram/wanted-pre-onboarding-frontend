@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useContext, useState } from "react";
-import { TodosContext } from "../context/todoContext";
+import { TodosContext } from "../../context/todoContext";
 import { ItemButtonGroup, EditButtonGroup } from "./TodoItemButtonGroup";
-import { Todo } from "../context/todoContext";
+import { Todo } from "../../context/todoContext";
 
 const TodoItem = ({ id, todo, isCompleted }: Todo) => {
   const context = useContext(TodosContext);

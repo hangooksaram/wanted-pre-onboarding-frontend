@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from "react";
-import { SignData } from "../api/api";
-import Input from "./styles/Input";
-import Button from "./styles/Button";
+import { SignData } from "../../api/api";
+import Input from "../styles/Input";
+import Button from "../styles/Button";
 
 type SignProps = {
   type: "signup" | "signin";

@@ -1,4 +1,4 @@
-import TodoList from "../components/TodoList";
+import TodoList from "../components/todo/TodoList";
 import TodosContextProvider from "../context/todoContext";
 import useRedirect from "../hook/useRedirect";
 

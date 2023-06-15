@@ -1,4 +1,4 @@
-import Sign from "../components/Sign";
+import Sign from "../components/sign/Sign";
 import { signUp } from "../api/sign";
 import { SignData } from "../api/api";
 import { useNavigate } from "react-router-dom";
