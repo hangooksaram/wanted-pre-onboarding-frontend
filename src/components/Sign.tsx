@@ -1,21 +1,14 @@
-import {
-  ChangeEvent,
-  ChangeEventHandler,
-  RefObject,
-  useRef,
-  useState,
-} from "react";
-import { signUp } from "../api/api";
+import { ChangeEvent, useState } from "react";
+import { SignData } from "../api/api";
 import Input from "./styles/Input";
 import Button from "./styles/Button";
-import { SignData } from "../api/api";
 
 type SignProps = {
   type: "signup" | "signin";
   handleSubmit: ({ email, password }: SignData) => void;
 };
 
-type SignFormData = {
+interface SignFormData {
   email: {
     value: string;
     isValidate: boolean;
@@ -24,7 +17,7 @@ type SignFormData = {
     value: string;
     isValidate: boolean;
   };
-};
+}
 const initialSignFormData: SignFormData = {
   email: {
     value: "",
@@ -61,7 +54,6 @@ const Sign = ({ type, handleSubmit }: SignProps) => {
       ...signForm,
       [label]: { value: value, isValidate: false },
     });
-    console.log(signForm);
   };
 
   return (

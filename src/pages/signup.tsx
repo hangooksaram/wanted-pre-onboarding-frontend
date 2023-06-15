@@ -1,5 +1,6 @@
 import Sign from "../components/Sign";
-import { SignData, signUp } from "../api/api";
+import { signUp } from "../api/sign";
+import { SignData } from "../api/api";
 import { useNavigate } from "react-router-dom";
 import useRedirect from "../hook/useRedirect";
 
