@@ -1,21 +1,37 @@
 import { signIn } from "../api/sign";
 import Sign from "../components/sign/Sign";
 import { SignData } from "../api/api";
-import useRedirect from "../hook/useRedirect";
 import { useNavigate } from "react-router-dom";
+import React from "react";
+import Button from "../components/ui/Button";
 
 const SignIn = () => {
-  useRedirect();
   const navigate = useNavigate();
   const handleSubmitSignIn = async ({ email, password }: SignData) => {
-    const { status, data } = await signIn({ email, password });
+    const { status, errorMessage, data } = await signIn({
+      email,
+      password,
+    });
     if (status === 200) {
-      const { access_token } = data!;
-      localStorage.setItem("access_token", access_token);
+      localStorage.setItem("access_token", data!.access_token);
       navigate("/todo");
+    } else {
+      alert(`요청이 실패했습니다. ${errorMessage}`);
     }
   };
-  return <Sign type={"signin"} handleSubmit={handleSubmitSignIn} />;
+  return (
+    <React.Fragment>
+      <Sign type={"signin"} handleSubmit={handleSubmitSignIn} />
+      <Button
+        margin="8px 0px 0px 0px"
+        color="white"
+        fontColor="black"
+        onClick={() => navigate("/signup")}
+      >
+        아직 회원이 아니신가요?
+      </Button>
+    </React.Fragment>
+  );
 };
 
 export default SignIn;

@@ -7,7 +7,10 @@ const useRedirect = () => {
   const isUser = localStorage.getItem("access_token");
 
   useEffect(() => {
-    if ((pathname === "/signin" || pathname === "/signup") && isUser) {
+    if (
+      (pathname === "/" || pathname === "/signin" || pathname === "/signup") &&
+      isUser
+    ) {
       navigate("/todo");
     } else if (pathname === "/todo" && !isUser) {
       navigate("/signin");

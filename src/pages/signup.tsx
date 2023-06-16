@@ -2,10 +2,8 @@ import Sign from "../components/sign/Sign";
 import { signUp } from "../api/sign";
 import { SignData } from "../api/api";
 import { useNavigate } from "react-router-dom";
-import useRedirect from "../hook/useRedirect";
 
 const SignUp = () => {
-  useRedirect();
   const navigate = useNavigate();
   const handleSubmitSignUp = async ({ email, password }: SignData) => {
     const res = await signUp({
