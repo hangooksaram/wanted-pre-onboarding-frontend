@@ -1,16 +1,15 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SignUp from "./pages/signup";
 import SignIn from "./pages/signin";
 import Todo from "./pages/todo";
+import AppContainer from "./components/ui/AppContainer";
 
 const routerConfig = [
   {
     path: "/",
-    element: <App />,
+    element: <SignIn />,
   },
   {
     path: "signup",
@@ -32,7 +31,7 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
+  <AppContainer>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  </AppContainer>
 );
