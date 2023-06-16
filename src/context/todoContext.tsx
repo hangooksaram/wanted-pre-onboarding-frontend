@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { createTodo, getTodos, updateTodo, deleteTodo } from "../api/todos";
 
@@ -13,14 +12,12 @@ type TodosContextType = {
   addTodo: (todo: string) => void;
   deleteTodo: (id: number) => void;
   modifyTodo: (id: number, todo: string, isCompleted: boolean) => void;
-  toggleDoneState: (id: number) => void;
 };
 export const TodosContext = React.createContext<TodosContextType>({
   items: [],
   addTodo: () => {},
   deleteTodo: () => {},
   modifyTodo: () => {},
-  toggleDoneState: () => {},
 });
 
 const getTodosHandler = async () => {
@@ -78,21 +75,11 @@ const TodosContextProvider: React.FC<{ children: any }> = (props) => {
     }
   };
 
-  const toggleDoneStateHandler = (id: number): void => {
-    const newTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        return { ...todo, isCompleted: !todo.isCompleted };
-      }
-      return todo;
-    });
-    setTodos(newTodos);
-  };
   const contextValue: TodosContextType = {
     items: todos,
     addTodo: addTodoHandler,
     deleteTodo: deleteTodoHandler,
     modifyTodo: modifyTodoHandler,
-    toggleDoneState: toggleDoneStateHandler,
   };
   return (
     <TodosContext.Provider value={contextValue}>

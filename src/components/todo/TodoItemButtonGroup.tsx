@@ -1,4 +1,5 @@
-import React from "react";
+import Button from "../ui/Button";
+import { css } from "@emotion/css";
 
 interface ItemButtonGroupProps {
   onDeleteTodo: () => void;
@@ -15,14 +16,33 @@ const ItemButtonGroup = ({
   onChangeModifyMode,
 }: ItemButtonGroupProps) => {
   return (
-    <React.Fragment>
-      <button data-testid="modify-button" onClick={onChangeModifyMode}>
+    <div
+      className={css`
+        text-align: right;
+      `}
+    >
+      <Button
+        width="50px"
+        height="40px"
+        color="rgb(138, 209, 146)"
+        margin="0px 4px 0px 0px"
+        borderRadius="5px"
+        data-testid="modify-button"
+        onClick={onChangeModifyMode}
+      >
         수정
-      </button>
-      <button data-testid="delete-button" onClick={onDeleteTodo}>
+      </Button>
+      <Button
+        width="50px"
+        height="40px"
+        color="rgb(255, 97, 97)"
+        borderRadius="5px"
+        data-testid="delete-button"
+        onClick={onDeleteTodo}
+      >
         삭제
-      </button>
-    </React.Fragment>
+      </Button>
+    </div>
   );
 };
 
@@ -31,14 +51,33 @@ const EditButtonGroup = ({
   onChangeModifyMode,
 }: EditButtonGroupProps) => {
   return (
-    <React.Fragment>
-      <button data-testid="submit-butotn" onClick={onSubmitTodo}>
+    <div
+      className={css`
+        text-align: right;
+      `}
+    >
+      <Button
+        width="50px"
+        height="40px"
+        color="rgb(138, 209, 146)"
+        margin="0px 4px 0px 0px"
+        borderRadius="5px"
+        data-testid="submit-button"
+        onClick={onSubmitTodo}
+      >
         제출
-      </button>
-      <button data-testid="cancel-button" onClick={onChangeModifyMode}>
+      </Button>
+      <Button
+        width="50px"
+        height="40px"
+        color="rgb(255, 97, 97)"
+        borderRadius="5px"
+        data-testid="cancel-button"
+        onClick={onChangeModifyMode}
+      >
         취소
-      </button>
-    </React.Fragment>
+      </Button>
+    </div>
   );
 };
 

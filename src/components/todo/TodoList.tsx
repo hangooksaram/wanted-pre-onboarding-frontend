@@ -1,5 +1,4 @@
-import { useContext, useState } from "react";
-import TodoInput from "./TodoInput";
+import { useContext } from "react";
 import TodoItem from "./TodoItem";
 import { TodosContext } from "../../context/todoContext";
 
@@ -8,7 +7,6 @@ const TodoList = () => {
 
   return (
     <ul>
-      <TodoInput />
       {todos.map(({ id, todo, isCompleted, userId }) => (
         <TodoItem
           key={id}

@@ -1,54 +1,86 @@
-import React, { ChangeEvent, useContext, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { TodosContext } from "../../context/todoContext";
 import { ItemButtonGroup, EditButtonGroup } from "./TodoItemButtonGroup";
 import { Todo } from "../../context/todoContext";
+import ListItem from "../ui/ListItem";
+import Input from "../ui/Input";
+import { css } from "@emotion/css";
 
 const TodoItem = ({ id, todo, isCompleted }: Todo) => {
-  const context = useContext(TodosContext);
+  const todos = useContext(TodosContext);
   const [isModifyMode, setIsModifyMode] = useState(false);
   const [modifyInput, setModifyInput] = useState(todo);
   const [isDone, setIsDone] = useState(isCompleted);
-  const handleSubmitTodo = (id: number) => {
-    context.modifyTodo(id, modifyInput, isCompleted);
-    setIsModifyMode(false);
+  const handleModifyTodo = (id: number) => {
+    if (modifyInput) {
+      todos.modifyTodo(id, modifyInput, isCompleted);
+      setIsModifyMode(false);
+    } else alert("수정할 할 일을 입력해주세요!");
   };
 
   const handleDeleteTodo = (id: number) => {
-    context.deleteTodo(id);
+    todos.deleteTodo(id);
   };
 
   const handleChangeDone = (e: ChangeEvent<HTMLInputElement>) => {
-    context.toggleDoneState(id);
     setIsDone(e.target.checked);
+    todos.modifyTodo(id, modifyInput, e.target.checked);
   };
+
+  const todoTextStyle = () => css`
+    margin-left: 16px;
+    ${isCompleted &&
+    `
+    text-decoration : line-through
+  `}
+  `;
   return (
-    <li>
-      <label>
-        <input checked={isDone} onChange={handleChangeDone} type="checkbox" />
+    <ListItem>
+      <label
+        className={css`
+          display: flex;
+          align-items: center;
+          width: 70%;
+        `}
+      >
+        <input
+          checked={isDone}
+          onChange={(e) => handleChangeDone(e)}
+          type="checkbox"
+        />
         {isModifyMode ? (
-          <input
+          <Input
             value={modifyInput}
-            onChange={(e) => setModifyInput(e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setModifyInput(e.target.value)
+            }
+            margin="0px"
             data-testid="modify-input"
           />
         ) : (
-          <span>{todo}</span>
+          <div className={todoTextStyle()}>{todo}</div>
         )}
       </label>
-      {isModifyMode ? (
-        <EditButtonGroup
-          onSubmitTodo={() => handleSubmitTodo(id)}
-          onChangeModifyMode={() => {
-            setIsModifyMode(false);
-          }}
-        />
-      ) : (
-        <ItemButtonGroup
-          onChangeModifyMode={() => setIsModifyMode(true)}
-          onDeleteTodo={() => handleDeleteTodo(id)}
-        />
-      )}
-    </li>
+      <div
+        className={css`
+          width: 30%;
+        `}
+      >
+        {isModifyMode ? (
+          <EditButtonGroup
+            onSubmitTodo={() => handleModifyTodo(id)}
+            onChangeModifyMode={() => {
+              setIsModifyMode(false);
+            }}
+          />
+        ) : (
+          <ItemButtonGroup
+            onChangeModifyMode={() => setIsModifyMode(true)}
+            onDeleteTodo={() => handleDeleteTodo(id)}
+          />
+        )}
+      </div>
+    </ListItem>
   );
 };
 

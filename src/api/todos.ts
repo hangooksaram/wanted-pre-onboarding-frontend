@@ -2,7 +2,6 @@ import axios from "axios";
 import { API_URL } from "./sign";
 import handleApiError from "../utils/handleApiError";
 import { TodoWriteApiResponse, TodoReadApiResponse } from "./api";
-const authorization = `Bearer ${localStorage.getItem("access_token")}`;
 
 const createTodo = async (todo: string): Promise<TodoWriteApiResponse> => {
   try {
@@ -11,7 +10,7 @@ const createTodo = async (todo: string): Promise<TodoWriteApiResponse> => {
       { todo },
       {
         headers: {
-          Authorization: authorization,
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
           "Content-Type": "application/json",
         },
       }
@@ -29,7 +28,7 @@ const getTodos = async (): Promise<TodoReadApiResponse> => {
   try {
     const { status, data } = await axios.get(`${API_URL}/todos`, {
       headers: {
-        Authorization: authorization,
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
       },
     });
     return {
@@ -43,7 +42,7 @@ const getTodos = async (): Promise<TodoReadApiResponse> => {
 
 const updateTodo = async (
   id: number,
-  todo: string,
+  todo: string | undefined,
   isCompleted: boolean
 ): Promise<TodoWriteApiResponse> => {
   try {
@@ -52,7 +51,7 @@ const updateTodo = async (
       { todo, isCompleted },
       {
         headers: {
-          Authorization: authorization,
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
           "Content-Type": "application/json",
         },
       }
@@ -70,7 +69,7 @@ const deleteTodo = async (id: number): Promise<TodoWriteApiResponse> => {
   try {
     const { status, data } = await axios.delete(`${API_URL}/todos/${id}`, {
       headers: {
-        Authorization: authorization,
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
       },
     });
     return {
